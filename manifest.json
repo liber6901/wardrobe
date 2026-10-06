@@ -1,0 +1,13 @@
+{
+  "name": "我的衣柜",
+  "short_name": "衣柜",
+  "description": "按分类记录衣物、细节与图片",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

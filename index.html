@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>我的衣柜</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-row">
+    <h1>我的衣柜</h1>
+    <button id="addBtn" class="btn btn-primary" type="button">＋ 添加衣物</button>
+  </div>
+  <div id="statsBar" class="stats-bar">—</div>
+</header>
+
+<section class="toolbar">
+  <nav id="catTabs" class="cat-tabs" aria-label="分类"></nav>
+  <div class="filters">
+    <input id="searchInput" class="search" type="search" placeholder="搜索 名称 / 品牌 / 颜色 / 备注" autocomplete="off">
+    <label class="chk"><input id="favOnly" type="checkbox"> 只看收藏</label>
+    <select id="sortSelect" class="select" aria-label="排序"></select>
+  </div>
+</section>
+
+<main id="list" class="grid" aria-live="polite"></main>
+<p id="emptyState" class="empty" hidden>还没有记录，点右上角「＋ 添加衣物」</p>
+
+<footer class="data-bar">
+  <button id="exportBtn" class="btn" type="button">导出备份 JSON</button>
+  <button id="importBtn" class="btn" type="button">导入备份 JSON</button>
+  <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <p class="hint">数据仅存本机浏览器，换手机前请先导出备份。</p>
+</footer>
+
+<div id="modal" class="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h2 id="modalTitle">添加衣物</h2>
+    <ul id="formErrors" class="errors" hidden></ul>
+    <form id="itemForm" novalidate>
+      <label class="field">名称 <span class="req">*</span>
+        <input name="name" type="text" required>
+      </label>
+      <label class="field">分类 <span class="req">*</span>
+        <select name="category"></select>
+      </label>
+      <div class="two">
+        <label class="field">颜色<input name="color" type="text"></label>
+        <label class="field">品牌<input name="brand" type="text"></label>
+      </div>
+      <div class="two">
+        <label class="field">尺码<input name="size" type="text"></label>
+        <label class="field">价格<input name="price" type="text" inputmode="decimal"></label>
+      </div>
+      <div class="two">
+        <label class="field">购买日期<input name="purchaseDate" type="date"></label>
+        <label class="field">季节<select name="season"></select></label>
+      </div>
+      <label class="field">备注<textarea name="note" rows="3"></textarea></label>
+      <label class="field">图片（自动压缩，可留空）
+        <input id="photoInput" type="file" accept="image/*">
+      </label>
+      <div id="photoPreview" class="photo-preview"></div>
+      <label class="chk"><input name="favorite" type="checkbox"> 加入收藏 ⭐</label>
+      <div class="modal-actions">
+        <button type="button" id="cancelBtn" class="btn">取消</button>
+        <button type="submit" class="btn btn-primary">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+</script>
+</body>
+</html>
